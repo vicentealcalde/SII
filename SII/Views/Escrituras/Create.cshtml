@@ -1,0 +1,121 @@
+﻿@model aplicacion.Models.Escritura
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Escritura</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Cne" class="control-label"></label>
+                <input asp-for="Cne" class="form-control" />
+                <span asp-validation-for="Cne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comuna" class="control-label"></label>
+                <input asp-for="Comuna" class="form-control" />
+                <span asp-validation-for="Comuna" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Manzana" class="control-label"></label>
+                <input asp-for="Manzana" class="form-control" />
+                <span asp-validation-for="Manzana" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Predio" class="control-label"></label>
+                <input asp-for="Predio" class="form-control" />
+                <span asp-validation-for="Predio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fojas" class="control-label"></label>
+                <input asp-for="Fojas" class="form-control" type="number" />
+                <span asp-validation-for="Fojas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaInscripcion" class="control-label"></label>
+                <input asp-for="FechaInscripcion" class="form-control" />
+                <span asp-validation-for="FechaInscripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumeroInscripcion" class="control-label"></label>
+                <input asp-for="NumeroInscripcion" class="form-control" />
+                <span asp-validation-for="NumeroInscripcion" class="text-danger"></span>
+            </div>
+            <!-- Sección para agregar Enajenantes -->
+            <div class="form-group" id="enajenantes-section">
+                <h4>Enajenantes</h4>
+                <div class="enajenante-item">
+                    <div class="form-group">
+                        <label for="enajenantes[0].Nombre">Nombre</label>
+                        <input class="form-control" type="text" id="enajenantes[0].Nombre" name="enajenantes[0].Nombre" />
+                    </div>
+                    <div class="form-group">
+                        <label for="enajenantes[0].RFC">RFC</label>
+                        <input class="form-control" type="text" id="enajenantes[0].RFC" name="enajenantes[0].RFC" />
+                    </div>
+                    <div class="form-group">
+                        <label for="enajenantes[0].CURP">CURP</label>
+                        <input class="form-control" type="text" id="enajenantes[0].CURP" name="enajenantes[0].CURP" />
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="agregarEnajenante()">Agregar otro enajenante</button>
+            </div>
+            <!-- Sección para agregar Adquirentes -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Adquirentes</h4>
+                    <hr />
+                </div>
+                <div class="col-md-12">
+                    <table class="table" id="adquirentesTable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>RFC</th>
+                                <th>Dirección</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" name="adquirentes[0].Nombre" required />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="adquirentes[0].RFC" required />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="adquirentes[0].Direccion" required />
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" onclick="removeRow(this)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-primary" onclick="addAdquirente()">Agregar Adquirente</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
